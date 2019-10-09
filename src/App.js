@@ -1,10 +1,9 @@
 import React from 'react';
 import Main from './components/main';
-import './App.css';
 
 export default function App() {
   return (
-    <div className="App">
+    <div className="container-fluid">
       <Main />
     </div>
   );
