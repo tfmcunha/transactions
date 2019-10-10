@@ -3,7 +3,7 @@ import Main from './components/main';
 
 export default function App() {
   return (
-    <div className="container-fluid">
+    <div className="container">
       <Main />
     </div>
   );

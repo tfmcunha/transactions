@@ -1,34 +1,82 @@
 import React from "react";
 
 export default function TransactionList({ transactions }) {
-  	return (
-    	<table className="table table-hover accordion">
-		  	<thead>
-		    	<tr>
-			      	<th style={{width: '20%'}} scope="col">Name</th>
-			      	<th style={{width: '20%'}} scope="col">Brand</th>
-			      	<th style={{width: '20%'}} scope="col">Last 4 Digits</th>
-			      	<th style={{width: '20%'}} scope="col">Transaction Type</th>
-			      	<th style={{width: '10%'}} scope="col">Amount</th>
-			      	<th style={{width: '10%'}} scope="col">Currency</th>
-		    	</tr>
-		  	</thead>		  	
-		  		{transactions.map((transaction,index) => (	
-		  			<tbody>
-						<tr key={transaction.id} data-toggle="collapse" data-target={`#collapse${index}`}>
-							<td>{transaction.card.holderName}</td>
-							<td>{}</td>
-							<td>XXXX {transaction.card.lastFourDigits}</td>
-							<td>{transaction.action.charAt(0).toUpperCase() + transaction.action.slice(1) }</td>
-							<td className="text-right">{transaction.amount}.00</td>
-							<td>{transaction.currencyCode}</td>							
-					   	</tr>    
-					   	<tr className="collapse" id={`collapse${index}`}>
-					   		<div>{transaction.id}</div>
-					   		<div>{transaction.card.brandId}</div>
-					   	</div>    					
-					</tbody>
-				))}	  	   		  	
-		</table>
-  	);
+	const headers = [
+		"Name",
+		"Brand",
+		"Last 4 Digits",
+		"Transaction Type",
+		"Amount",
+		"Currency"
+	];
+
+	return (
+		<div>
+			<ul className="list-group list-group-flush">
+				<li className="row list-group-item d-flex">
+					{headers.map(head => (
+						<div className="col-2">
+							<b>{head}</b>
+						</div>
+					))}
+				</li>
+				{transactions.map((transaction, index) => {
+					const {
+						card: {
+							holderName,
+							lastFourDigits,
+							firstSixDigits,
+							expiryMonth,
+							expiryYear
+						},
+						action,
+						brandId,
+						currencyCode,
+						amount,
+						id,
+						trackingCode
+					} = transaction;
+
+					return (
+						<>
+							<li
+							className="row list-group-item d-flex"
+							data-toggle="collapse"
+							data-target={`#collapse${index}`}
+							>
+								<div className="col-2">{holderName}</div>
+								<div className="col-2">{brandId}</div>
+								<div className="col-2">XXXX {lastFourDigits}</div>
+								<div className="col-2">{action}</div>
+								<div className="col-2">{amount}</div>
+								<div className="col-2">{currencyCode}</div>
+							</li>
+							<div id={`collapse${index}`} className="row sub collapse">
+								<div className="col-sm-6 offset-sm-1">
+									<div className="row">
+										<div className="col-3">ID:</div>
+										<div className="col-9">{id}</div>
+										<div className="col-3">Tracking Code:</div>
+										<div className="col-9">{trackingCode}</div>
+										<div className="col-3">Brand ID:</div>
+										<div className="col-9">{brandId}</div>
+									</div>
+								</div>
+								<div className="col-sm-4">
+									<div className="row">
+										<div className="col-5">First 6 Digits:</div>
+										<div className="col-7">{firstSixDigits} XXXX</div>
+										<div className="col-5">Expiry Month:</div>
+										<div className="col-7">{expiryMonth}</div>
+										<div className="col-5">Expiry Year: </div>
+										<div className="col-7">{expiryYear}</div>
+									</div>
+								</div>
+							</div>
+						</>
+					);
+				})}
+			</ul>
+		</div>
+	);
 }
