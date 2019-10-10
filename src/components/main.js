@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import TransactionList from'./transactionlist';
+import Bar from './bar';
 
 export default function Main() {
 	const [action, setAction] = useState("");
@@ -18,7 +19,7 @@ export default function Main() {
 				}
 			);
 		const data = await res.json();
-		
+
 		console.log(data)
 		setTransactions(data)
 	}
@@ -37,19 +38,8 @@ export default function Main() {
 
 	return (
 		<>
-			<select onChange={(e) => setAction(e.target.value)}>
-				<option value ="">Transaction Type</option>
-				<option value="payment">Payment</option>
-				<option value="credit">Credit</option>
-			</select>
-			<select onChange={(e) => setCurrencyCode(e.target.value)}>
-				<option value ="">Currency</option>
-				<option value="EUR">EUR</option>
-				<option value="JPY">JPY</option>
-				<option value="USD">USD</option>
-			</select>
-			<button onClick={getTransactions}>Search</button>
+			<Bar getTransactions={getTransactions} setAction={setAction} setCurrencyCode={setCurrencyCode} />
 			<TransactionList transactions={transactions}/>
 		</>
-		);
+	);
 }

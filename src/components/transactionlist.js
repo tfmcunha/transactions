@@ -13,9 +13,9 @@ export default function TransactionList({ transactions }) {
 	return (
 		<div>
 			<ul className="list-group list-group-flush">
-				<li className="row list-group-item d-flex">
-					{headers.map(head => (
-						<div className="col-2">
+				<li className="row list-group-item d-flex list-header">
+					{headers.map((head, index) => (
+						<div key={index} className="col-2">
 							<b>{head}</b>
 						</div>
 					))}
@@ -38,8 +38,8 @@ export default function TransactionList({ transactions }) {
 					} = transaction;
 
 					return (
-						<>
-							<li
+						<div key={id}>
+							<li							
 							className="row list-group-item d-flex"
 							data-toggle="collapse"
 							data-target={`#collapse${index}`}
@@ -54,26 +54,34 @@ export default function TransactionList({ transactions }) {
 							<div id={`collapse${index}`} className="row sub collapse">
 								<div className="col-sm-6 offset-sm-1">
 									<div className="row">
-										<div className="col-3">ID:</div>
-										<div className="col-9">{id}</div>
-										<div className="col-3">Tracking Code:</div>
-										<div className="col-9">{trackingCode}</div>
-										<div className="col-3">Brand ID:</div>
-										<div className="col-9">{brandId}</div>
+										<div className="col-3 sub-titles">
+											<div>ID:</div>
+											<div>Tracking Code:</div>
+											<div>Brand ID:</div>
+										</div>
+										<div className="col-9">
+											<div>{id}</div>
+											<div>{trackingCode}</div>
+											<div>{brandId}</div>
+										</div>
 									</div>
 								</div>
 								<div className="col-sm-4">
 									<div className="row">
-										<div className="col-5">First 6 Digits:</div>
-										<div className="col-7">{firstSixDigits} XXXX</div>
-										<div className="col-5">Expiry Month:</div>
-										<div className="col-7">{expiryMonth}</div>
-										<div className="col-5">Expiry Year: </div>
-										<div className="col-7">{expiryYear}</div>
+										<div className="col-5 sub-titles">
+											<div>First 6 Digits:</div>
+											<div>Expiry Month:</div>
+											<div>Expiry Year: </div>
+										</div>
+										<div className="col-7">
+											<div>{firstSixDigits} XXXX</div>											
+											<div>{expiryMonth}</div>											
+											<div>{expiryYear}</div>
+										</div>
 									</div>
 								</div>
 							</div>
-						</>
+						</div>
 					);
 				})}
 			</ul>
