@@ -1,3 +1,8 @@
+Job application challenge from PayVision
+
+A dashboard for displaying transactions from an API endpoint with basic authentication 
+___________________________________________________________________________________________________________
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
